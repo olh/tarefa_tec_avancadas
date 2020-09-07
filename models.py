@@ -6,17 +6,20 @@ from registration.signals import user_registered
 # Create your models here.
 
 class Account(models.Model):
+	"""Classe de conta da aplicação"""
 	owner = models.OneToOneField(User)
 	publisherBalance = models.DecimalField(max_digits=10, decimal_places=2)
 	advertiserBalance = models.DecimalField(max_digits=10, decimal_places=2)
 
 class Poll(models.Model):
+	"""Classe que descreve uma questão a ser respondida"""
 	owner = models.ForeignKey(User)
 	question = models.CharField(max_length=200)
 	def __unicode__(self):
 		return self.question
 
 class Choice(models.Model):
+	"""Classe que descreve escolhas de resposta de uma questão"""
 	poll = models.ForeignKey(Poll)
 	choiceText = models.CharField(max_length=100)
 	choiceUrl = models.URLField(blank=True)
@@ -24,6 +27,7 @@ class Choice(models.Model):
 		return self.choice_text
 
 class Publisher(models.Model):
+	"""Classe descrevendo um publisher onde a questão será exposta"""
 	owner = models.ForeignKey(User)
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=1000)
